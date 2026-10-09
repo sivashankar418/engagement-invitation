@@ -1731,7 +1731,7 @@ body::after {
             #4b1026
         );
 
-    color: white;
+    color: #5a152f;
 }
 
 .rsvp-card {
@@ -1749,7 +1749,7 @@ body::after {
 
     margin: 25px auto;
 
-    color: rgba(255,255,255,0.85);
+    color: black;
 
     line-height: 2;
 }
@@ -1766,7 +1766,7 @@ body::after {
     background:
         rgba(255,255,255,0.08);
 
-    color: white;
+    color: var(--gold-light);
 
     cursor: pointer;
 
@@ -1779,6 +1779,7 @@ body::after {
 
 .whatsapp-button:hover {
     background: var(--gold-light);
+    
 
     color: var(--deep-wine);
 
@@ -1869,7 +1870,7 @@ body::after {
 }
 
 .thank-you {
-    color: rgba(255,255,255,0.85);
+    color: black;
 
     font-size: 13px;
 
