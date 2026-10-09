@@ -44,28 +44,32 @@ const musicButton =
     document.getElementById("musicButton");
 
 
-openInvitation.addEventListener("click", () => {
+if (openInvitation && openingScreen) {
 
-    openingScreen.classList.add("hidden");
+    openInvitation.addEventListener("click", () => {
 
-    /*
-        Browser allows music only after
-        user interaction.
-    */
+        openingScreen.classList.add("hidden");
 
-    music.play()
-        .then(() => {
+        /*
+            Browser allows music only after
+            user interaction.
+        */
 
-            musicButton.innerHTML = "♫";
+        music.play()
+            .then(() => {
 
-        })
-        .catch(() => {
+                musicButton.innerHTML = "♫";
 
-            musicButton.innerHTML = "♪";
+            })
+            .catch(() => {
 
-        });
+                musicButton.innerHTML = "♪";
 
-});
+            });
+
+    });
+
+}
 
 
 /* =====================================================

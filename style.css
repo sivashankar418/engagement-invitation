@@ -2668,3 +2668,333 @@ footer {
         font-size: 5px;
     }
 }
+
+
+/* TWO BIRDS FLYING FROM OPPOSITE CORNERS */
+.bird-flight-area {
+    position: relative;
+    width: min(90vw, 440px);
+    height: 300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+}
+
+.flying-bird {
+    position: absolute;
+    z-index: 8;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.bird-emoji {
+    display: block;
+    font-size: clamp(48px, 11vw, 76px);
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .2));
+}
+
+.bird-left {
+    left: -30px;
+    animation: birdFlyFromTopLeft 2.8s cubic-bezier(.2, .75, .3, 1)
+               .2s forwards;
+}
+
+.bird-right {
+    right: -30px;
+    top: 100px;
+    animation: birdFlyFromBottomRight 2.8s cubic-bezier(.2, .75, .3, 1)
+               .2s forwards;
+}
+
+.bird-left .bird-emoji {
+    transform: scaleX(-1);
+}
+
+.bird-rope {
+    width: 2px;
+    height: 25px;
+    margin-top: -2px;
+    background: linear-gradient(#f5d48b, #c79a52);
+    transform-origin: top;
+}
+
+.bird-rope::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #d9b36e;
+    border-radius: 50%;
+    background: #fff1cd;
+}
+
+.letter-envelope {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 50%;
+    width: clamp(220px, 60vw, 300px);
+    height: clamp(145px, 40vw, 200px);
+    margin: 0;
+    transform: translate(-50%, -50%) scale(.25);
+    opacity: 0;
+    pointer-events: none;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    filter: drop-shadow(0 15px 24px rgba(0, 0, 0, .22));
+    animation: letterDelivered 1.2s 2.3s cubic-bezier(.2, .8, .2, 1)
+               forwards;
+}
+
+.letter-envelope.is-delivered {
+    pointer-events: auto;
+    cursor: pointer;
+    animation: envelopeHover 3s ease-in-out infinite;
+}
+
+.envelope-back,
+.envelope-front,
+.envelope-flap,
+.letter-paper {
+    position: absolute;
+    display: block;
+}
+
+.envelope-back {
+    inset: 0;
+    z-index: 1;
+    border: 1px solid #f5d79c;
+    border-radius: 6px;
+    background: linear-gradient(145deg, #fff8e8, #e5b96e);
+}
+
+.letter-paper {
+    z-index: 2;
+    top: 5%;
+    left: 8%;
+    right: 8%;
+    height: 90%;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #641a37;
+    background: #fff9ed;
+    border: 1px solid #e5c98e;
+    transition: transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.letter-paper-heart {
+    color: #b43b60;
+    font-size: 25px;
+}
+
+.letter-paper-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px;
+    font-style: italic;
+}
+
+.letter-paper-names {
+    margin-top: 6px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.envelope-front {
+    z-index: 3;
+    inset: 0;
+    border-radius: 6px;
+    background: linear-gradient(140deg, #f7dda9, #d8a45d);
+    clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+}
+
+.envelope-flap {
+    z-index: 4;
+    inset: 0 0 auto;
+    height: 65%;
+    background: linear-gradient(160deg, #ffedc7, #dfb36c);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .8s ease;
+}
+
+.envelope-seal {
+    position: absolute;
+    z-index: 6;
+    top: 49%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffe5b4;
+    background: radial-gradient(circle at 30% 25%, #bb4b6b, #69162f);
+    transform: translate(-50%, -50%);
+    transition: opacity .4s ease;
+}
+
+.letter-envelope.is-open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.letter-envelope.is-open .envelope-seal {
+    opacity: 0;
+}
+
+.letter-envelope.is-open .letter-paper {
+    transform: translateY(-85px);
+}
+
+.flight-heart {
+    position: absolute;
+    top: 20px;
+    left: 48%;
+    z-index: 2;
+    color: #f1d18a;
+    font-size: 23px;
+    opacity: 0;
+    animation: heartAppear 1s 2.6s forwards,
+               heartFloat 2s 3.6s ease-in-out infinite;
+}
+
+.letter-prompt {
+    color: #fff3dd;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(23px, 5vw, 32px);
+    font-style: italic;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.tap-letter-button {
+    margin-top: 15px;
+    padding: 13px 25px;
+    color: #fff;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid #e9c982;
+    border-radius: 40px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    opacity: 0;
+    animation: showOpenButton .8s 3.2s forwards;
+}
+
+.letter-scene-telugu {
+    color: #ffe5c5;
+    text-align: center;
+    margin-top: 14px;
+}
+
+/* Birds arrive from opposite corners and meet */
+@keyframes birdFlyFromTopLeft {
+    0% {
+        opacity: 0;
+        transform: translate(-170px, -150px) rotate(-25deg) scale(.45);
+    }
+    20% { opacity: 1; }
+    65% {
+        transform: translate(110px, 45px) rotate(8deg) scale(1);
+    }
+    80% {
+        transform: translate(110px, 45px) rotate(-4deg) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(110px, 45px) rotate(0) scale(1);
+    }
+}
+
+@keyframes birdFlyFromBottomRight {
+    0% {
+        opacity: 0;
+        transform: translate(170px, 160px) rotate(25deg) scale(.45);
+    }
+    20% { opacity: 1; }
+    65% {
+        transform: translate(-110px, -15px) rotate(-8deg) scale(1);
+    }
+    80% {
+        transform: translate(-110px, -15px) rotate(4deg) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-110px, -15px) rotate(0) scale(1);
+    }
+}
+
+@keyframes letterDelivered {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.25) rotate(-15deg);
+    }
+    65% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.12) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0);
+    }
+}
+
+@keyframes envelopeHover {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -7px; }
+}
+
+@keyframes heartAppear {
+    to { opacity: 1; }
+}
+
+@keyframes heartFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.15); }
+}
+
+@keyframes showOpenButton {
+    to { opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .bird-flight-area {
+        height: 265px;
+        width: 92vw;
+    }
+
+    .bird-left { left: -15px; }
+    .bird-right { right: -15px; }
+
+    .letter-paper-names { font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bird-left,
+    .bird-right,
+    .letter-envelope,
+    .flight-heart,
+    .tap-letter-button {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+    }
+}
+.lovebird-scene.delivered {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .8s ease, visibility .8s ease;
+}
