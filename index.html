@@ -1,912 +1,988 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen &amp; Shindhu | Engagement Invitation</title>
 
-<title>Naveen &amp; Shindhu | Engagement Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* LOVE BIRDS OPENING ANIMATION */
 
-<link rel="stylesheet" href="style.css">
+        .invitation-intro.is-hidden {
+            display: none !important;
+        }
 
-<style>
-/* ================================
-   LOVE BIRDS OPENING ANIMATION
-================================ */
+        .invitation-intro.is-visible {
+            display: block;
+            animation: introReveal 1s ease both;
+        }
 
-.invitation-intro.is-hidden {
-    display: none !important;
-}
+        .lovebird-scene {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            margin: auto;
+            width: min(92vw, 620px);
+            min-height: 82vh;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: opacity .8s ease, visibility .8s ease;
+        }
 
-.invitation-intro.is-visible {
-    display: block;
-    animation: introReveal 1s ease both;
-}
+        .lovebird-scene.delivered {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-.lovebird-scene {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    margin: auto;
-    width: min(92vw, 620px);
-    min-height: 82vh;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: opacity .8s ease, visibility .8s ease;
-}
+        .letter-scene-kicker {
+            color: var(--gold-light, #e7c982);
+            font-size: 10px;
+            letter-spacing: 5px;
+            margin: 0 0 8px;
+        }
 
-.lovebird-scene.delivered {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
+        .bird-flight-area {
+            position: relative;
+            width: min(90vw, 440px);
+            height: 300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.letter-scene-kicker {
-    color: var(--gold-light, #e7c982);
-    font-size: 10px;
-    letter-spacing: 5px;
-    margin: 0 0 8px;
-}
+        .flying-bird {
+            position: absolute;
+            z-index: 8;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
 
-.bird-flight-area {
-    position: relative;
-    width: min(90vw, 440px);
-    height: 300px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .bird-emoji {
+            display: block;
+            font-size: clamp(48px, 11vw, 76px);
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,.2));
+        }
 
-.flying-bird {
-    position: absolute;
-    z-index: 8;
-    top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-}
+        .bird-left {
+            left: -30px;
+            animation: birdFlyFromTopLeft 2.8s cubic-bezier(.2,.75,.3,1) .2s forwards;
+        }
 
-.bird-emoji {
-    display: block;
-    font-size: clamp(48px, 11vw, 76px);
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,.2));
-}
+        .bird-left .bird-emoji {
+            transform: scaleX(-1);
+        }
 
-/* Bird 1 flies from the top-left corner */
-.bird-left {
-    left: -30px;
-    animation:
-        birdFlyFromTopLeft 2.8s cubic-bezier(.2,.75,.3,1) .2s forwards;
-}
+        .bird-right {
+            right: -30px;
+            top: 100px;
+            animation: birdFlyFromBottomRight 2.8s cubic-bezier(.2,.75,.3,1) .2s forwards;
+        }
 
-.bird-left .bird-emoji {
-    transform: scaleX(-1);
-}
+        .bird-rope {
+            width: 2px;
+            height: 25px;
+            margin-top: -2px;
+            background: linear-gradient(#f5d48b,#c79a52);
+            position: relative;
+        }
 
-/* Bird 2 flies from the bottom-right corner */
-.bird-right {
-    right: -30px;
-    top: 100px;
-    animation:
-        birdFlyFromBottomRight 2.8s cubic-bezier(.2,.75,.3,1) .2s forwards;
-}
+        .bird-rope::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #d9b36e;
+            border-radius: 50%;
+            background: #fff1cd;
+        }
 
-.bird-rope {
-    width: 2px;
-    height: 25px;
-    margin-top: -2px;
-    background: linear-gradient(#f5d48b,#c79a52);
-    position: relative;
-}
+        .letter-envelope {
+            position: absolute;
+            z-index: 5;
+            left: 50%;
+            top: 50%;
+            width: clamp(220px,60vw,300px);
+            height: clamp(145px,40vw,200px);
+            margin: 0;
+            transform: translate(-50%,-50%) scale(.25);
+            opacity: 0;
+            pointer-events: none;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            filter: drop-shadow(0 15px 24px rgba(0,0,0,.22));
+            animation: letterDelivered 1.2s 2.3s cubic-bezier(.2,.8,.2,1) forwards;
+        }
 
-.bird-rope::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: -4px;
-    width: 10px;
-    height: 10px;
-    border: 1px solid #d9b36e;
-    border-radius: 50%;
-    background: #fff1cd;
-}
+        .letter-envelope.is-delivered {
+            pointer-events: auto;
+            cursor: pointer;
+            animation: envelopeHover 3s ease-in-out infinite;
+        }
 
-/* Envelope arrives in the middle */
-.letter-envelope {
-    position: absolute;
-    z-index: 5;
-    left: 50%;
-    top: 50%;
-    width: clamp(220px,60vw,300px);
-    height: clamp(145px,40vw,200px);
-    margin: 0;
-    transform: translate(-50%,-50%) scale(.25);
-    opacity: 0;
-    pointer-events: none;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    filter: drop-shadow(0 15px 24px rgba(0,0,0,.22));
-    animation:
-        letterDelivered 1.2s 2.3s cubic-bezier(.2,.8,.2,1) forwards;
-}
+        .envelope-back,
+        .envelope-front,
+        .envelope-flap,
+        .letter-paper {
+            position: absolute;
+            display: block;
+        }
 
-.letter-envelope.is-delivered {
-    pointer-events: auto;
-    cursor: pointer;
-    animation: envelopeHover 3s ease-in-out infinite;
-}
+        .envelope-back {
+            inset: 0;
+            z-index: 1;
+            border: 1px solid #f5d79c;
+            border-radius: 6px;
+            background: linear-gradient(145deg,#fff8e8,#e5b96e);
+        }
 
-.envelope-back,
-.envelope-front,
-.envelope-flap,
-.letter-paper {
-    position: absolute;
-    display: block;
-}
+        .letter-paper {
+            z-index: 2;
+            top: 5%;
+            left: 8%;
+            right: 8%;
+            height: 90%;
+            padding: 15px 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #641a37;
+            background: #fff9ed;
+            border: 1px solid #e5c98e;
+            transition: transform .9s cubic-bezier(.2,.8,.2,1);
+        }
 
-.envelope-back {
-    inset: 0;
-    z-index: 1;
-    border: 1px solid #f5d79c;
-    border-radius: 6px;
-    background: linear-gradient(145deg,#fff8e8,#e5b96e);
-}
+        .letter-paper-heart {
+            color: #b43b60;
+            font-size: 25px;
+        }
 
-.letter-paper {
-    z-index: 2;
-    top: 5%;
-    left: 8%;
-    right: 8%;
-    height: 90%;
-    padding: 15px 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #641a37;
-    background: #fff9ed;
-    border: 1px solid #e5c98e;
-    transition: transform .9s cubic-bezier(.2,.8,.2,1);
-}
+        .letter-paper-title {
+            font-family: "Cormorant Garamond",serif;
+            font-size: 21px;
+            font-style: italic;
+        }
 
-.letter-paper-heart {
-    color: #b43b60;
-    font-size: 25px;
-}
+        .letter-paper-names {
+            margin-top: 6px;
+            font-family: "Cormorant Garamond",serif;
+            font-size: 26px;
+            font-weight: 600;
+        }
 
-.letter-paper-title {
-    font-family: "Cormorant Garamond",serif;
-    font-size: 21px;
-    font-style: italic;
-}
+        .envelope-front {
+            z-index: 3;
+            inset: 0;
+            border-radius: 6px;
+            background: linear-gradient(140deg,#f7dda9,#d8a45d);
+            clip-path: polygon(0 0,50% 57%,100% 0,100% 100%,0 100%);
+        }
 
-.letter-paper-names {
-    margin-top: 6px;
-    font-family: "Cormorant Garamond",serif;
-    font-size: 26px;
-    font-weight: 600;
-}
+        .envelope-flap {
+            z-index: 4;
+            inset: 0 0 auto;
+            height: 65%;
+            background: linear-gradient(160deg,#ffedc7,#dfb36c);
+            clip-path: polygon(0 0,100% 0,50% 100%);
+            transform-origin: top center;
+            transition: transform .8s ease;
+        }
 
-.envelope-front {
-    z-index: 3;
-    inset: 0;
-    border-radius: 6px;
-    background: linear-gradient(140deg,#f7dda9,#d8a45d);
-    clip-path: polygon(0 0,50% 57%,100% 0,100% 100%,0 100%);
-}
+        .envelope-seal {
+            position: absolute;
+            z-index: 6;
+            top: 49%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #ffe5b4;
+            background: radial-gradient(circle at 30% 25%,#bb4b6b,#69162f);
+            transform: translate(-50%,-50%);
+            transition: opacity .4s ease;
+        }
 
-.envelope-flap {
-    z-index: 4;
-    inset: 0 0 auto;
-    height: 65%;
-    background: linear-gradient(160deg,#ffedc7,#dfb36c);
-    clip-path: polygon(0 0,100% 0,50% 100%);
-    transform-origin: top center;
-    transition: transform .8s ease;
-}
+        .letter-envelope.is-open .envelope-flap {
+            transform: rotateX(180deg);
+        }
 
-.envelope-seal {
-    position: absolute;
-    z-index: 6;
-    top: 49%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    color: #ffe5b4;
-    background: radial-gradient(circle at 30% 25%,#bb4b6b,#69162f);
-    transform: translate(-50%,-50%);
-    transition: opacity .4s ease;
-}
+        .letter-envelope.is-open .envelope-seal {
+            opacity: 0;
+        }
 
-.letter-envelope.is-open .envelope-flap {
-    transform: rotateX(180deg);
-}
+        .letter-envelope.is-open .letter-paper {
+            transform: translateY(-85px);
+        }
 
-.letter-envelope.is-open .envelope-seal {
-    opacity: 0;
-}
+        .flight-heart {
+            position: absolute;
+            top: 20px;
+            left: 48%;
+            z-index: 2;
+            color: #f1d18a;
+            font-size: 23px;
+            opacity: 0;
+            animation: heartAppear 1s 2.6s forwards,
+                       heartFloat 2s 3.6s ease-in-out infinite;
+        }
 
-.letter-envelope.is-open .letter-paper {
-    transform: translateY(-85px);
-}
+        .letter-prompt {
+            color: #fff3dd;
+            font-family: "Cormorant Garamond",serif;
+            font-size: clamp(23px,5vw,32px);
+            font-style: italic;
+            text-align: center;
+            margin: 12px 0 0;
+        }
 
-.flight-heart {
-    position: absolute;
-    top: 20px;
-    left: 48%;
-    z-index: 2;
-    color: #f1d18a;
-    font-size: 23px;
-    opacity: 0;
-    animation:
-        heartAppear 1s 2.6s forwards,
-        heartFloat 2s 3.6s ease-in-out infinite;
-}
+        .tap-letter-button {
+            margin-top: 15px;
+            padding: 13px 25px;
+            color: #fff;
+            background: rgba(255,255,255,.08);
+            border: 1px solid #e9c982;
+            border-radius: 40px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            opacity: 0;
+            animation: showOpenButton .8s 3.2s forwards;
+        }
 
-.letter-prompt {
-    color: #fff3dd;
-    font-family: "Cormorant Garamond",serif;
-    font-size: clamp(23px,5vw,32px);
-    font-style: italic;
-    text-align: center;
-    margin: 12px 0 0;
-}
+        @keyframes birdFlyFromTopLeft {
+            0% {
+                opacity: 0;
+                transform: translate(-170px,-150px) rotate(-25deg) scale(.45);
+            }
+            20% { opacity: 1; }
+            65% {
+                transform: translate(110px,45px) rotate(8deg) scale(1);
+            }
+            80% {
+                transform: translate(110px,45px) rotate(-4deg) scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(110px,45px) rotate(0) scale(1);
+            }
+        }
 
-.tap-letter-button {
-    margin-top: 15px;
-    padding: 13px 25px;
-    color: #fff;
-    background: rgba(255,255,255,.08);
-    border: 1px solid #e9c982;
-    border-radius: 40px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    opacity: 0;
-    animation: showOpenButton .8s 3.2s forwards;
-}
+        @keyframes birdFlyFromBottomRight {
+            0% {
+                opacity: 0;
+                transform: translate(170px,160px) rotate(25deg) scale(.45);
+            }
+            20% { opacity: 1; }
+            65% {
+                transform: translate(-110px,-15px) rotate(-8deg) scale(1);
+            }
+            80% {
+                transform: translate(-110px,-15px) rotate(4deg) scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-110px,-15px) rotate(0) scale(1);
+            }
+        }
 
-/* Bird flight paths */
-@keyframes birdFlyFromTopLeft {
-    0% {
-        opacity: 0;
-        transform: translate(-170px,-150px) rotate(-25deg) scale(.45);
-    }
-    20% { opacity: 1; }
-    65% {
-        transform: translate(110px,45px) rotate(8deg) scale(1);
-    }
-    80% {
-        transform: translate(110px,45px) rotate(-4deg) scale(1);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(110px,45px) rotate(0) scale(1);
-    }
-}
+        @keyframes letterDelivered {
+            0% {
+                opacity: 0;
+                transform: translate(-50%,-50%) scale(.25) rotate(-15deg);
+            }
+            65% {
+                opacity: 1;
+                transform: translate(-50%,-50%) scale(1.12) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%,-50%) scale(1) rotate(0);
+            }
+        }
 
-@keyframes birdFlyFromBottomRight {
-    0% {
-        opacity: 0;
-        transform: translate(170px,160px) rotate(25deg) scale(.45);
-    }
-    20% { opacity: 1; }
-    65% {
-        transform: translate(-110px,-15px) rotate(-8deg) scale(1);
-    }
-    80% {
-        transform: translate(-110px,-15px) rotate(4deg) scale(1);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-110px,-15px) rotate(0) scale(1);
-    }
-}
+        @keyframes envelopeHover {
+            0%,100% { margin-top: 0; }
+            50% { margin-top: -7px; }
+        }
 
-@keyframes letterDelivered {
-    0% {
-        opacity: 0;
-        transform: translate(-50%,-50%) scale(.25) rotate(-15deg);
-    }
-    65% {
-        opacity: 1;
-        transform: translate(-50%,-50%) scale(1.12) rotate(5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%,-50%) scale(1) rotate(0);
-    }
-}
+        @keyframes heartAppear {
+            to { opacity: 1; }
+        }
 
-@keyframes envelopeHover {
-    0%,100% { margin-top: 0; }
-    50% { margin-top: -7px; }
-}
+        @keyframes heartFloat {
+            0%,100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.15); }
+        }
 
-@keyframes heartAppear {
-    to { opacity: 1; }
-}
+        @keyframes showOpenButton {
+            to { opacity: 1; }
+        }
 
-@keyframes heartFloat {
-    0%,100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-10px) scale(1.15); }
-}
+        @keyframes introReveal {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-@keyframes showOpenButton {
-    to { opacity: 1; }
-}
+        /* PERUSAMULA HALF-MOON QUOTATION */
 
-@keyframes introReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .invitation-moon {
+            width: min(340px, 90vw);
+            min-height: 220px;
+            margin: 10px auto 20px;
+            padding: 48px 30px 25px;
+            box-sizing: border-box;
+            border: 1.5px solid #d4af62;
+            border-bottom: none;
+            border-radius: 180px 180px 0 0;
+            background: radial-gradient(
+                ellipse at top,
+                rgba(212, 175, 98, 0.13),
+                transparent 72%
+            );
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            color: #f4dca6;
+            animation: moonReveal 1.6s ease both;
+        }
 
-@media (max-width:480px) {
-    .lovebird-scene {
-        min-height: 90vh;
-        padding: 20px 10px;
-    }
+        .invitation-moon::before,
+        .invitation-moon::after {
+            content: "✦";
+            position: absolute;
+            top: 45px;
+            color: #e5c477;
+            font-size: 16px;
+        }
 
-    .bird-flight-area {
-        height: 265px;
-        width: 92vw;
-    }
+        .invitation-moon::before { left: 25px; }
+        .invitation-moon::after { right: 25px; }
 
-    .bird-left { left: -15px; }
-    .bird-right { right: -15px; }
-    .letter-paper-names { font-size: 22px; }
-    .letter-scene-kicker { letter-spacing: 3px; }
-}
+        .moon-house-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #f5d58a;
+            margin: 0 0 2px;
+            text-shadow: 0 0 12px rgba(245, 213, 138, 0.4);
+        }
 
-@media (prefers-reduced-motion:reduce) {
-    .bird-left,
-    .bird-right,
-    .letter-envelope,
-    .flight-heart,
-    .tap-letter-button {
-        animation-duration: .01ms !important;
-        animation-delay: 0ms !important;
-    }
-}
-</style>
+        .moon-english {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-style: italic;
+            line-height: 1.5;
+            color: #f8e8c4;
+            margin: 0;
+        }
+
+        .moon-telugu {
+            font-family: 'Noto Serif Telugu', serif;
+            font-size: 14px;
+            line-height: 1.9;
+            color: #f8e8c4;
+            margin: 0;
+        }
+
+        @keyframes moonReveal {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lovebird-scene {
+                min-height: 90vh;
+                padding: 20px 10px;
+            }
+
+            .bird-flight-area {
+                height: 265px;
+                width: 92vw;
+            }
+
+            .bird-left { left: -15px; }
+            .bird-right { right: -15px; }
+            .letter-paper-names { font-size: 22px; }
+            .letter-scene-kicker { letter-spacing: 3px; }
+
+            .invitation-moon {
+                min-height: 225px;
+                padding: 48px 24px 22px;
+            }
+
+            .moon-house-name {
+                font-size: 19px;
+                letter-spacing: 3px;
+            }
+
+            .moon-english { font-size: 15px; }
+            .moon-telugu { font-size: 13px; }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .bird-left,
+            .bird-right,
+            .letter-envelope,
+            .flight-heart,
+            .tap-letter-button {
+                animation-duration: .01ms !important;
+                animation-delay: 0ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- OPENING SCREEN -->
-<div id="openingScreen" class="opening-screen">
+    <!-- OPENING SCREEN -->
+    <div id="openingScreen" class="opening-screen">
+        <div class="opening-decoration top-decoration">✦</div>
 
-    <div class="opening-decoration top-decoration">✦</div>
+        <!-- LOVE BIRDS AND LETTER ANIMATION -->
+        <div class="lovebird-scene" id="lovebirdScene">
+            <p class="letter-scene-kicker">A LITTLE LOVE STORY</p>
 
-    <!-- NEW LOVE BIRDS AND LETTER ANIMATION -->
-    <div class="lovebird-scene" id="lovebirdScene">
+            <div class="bird-flight-area">
+                <span class="flight-heart" aria-hidden="true">♥</span>
 
-        <p class="letter-scene-kicker">A LITTLE LOVE STORY</p>
+                <div class="flying-bird bird-left" aria-hidden="true">
+                    <span class="bird-emoji">🕊️</span>
+                    <span class="bird-rope"></span>
+                </div>
 
-        <div class="bird-flight-area">
+                <div class="flying-bird bird-right" aria-hidden="true">
+                    <span class="bird-emoji">🕊️</span>
+                    <span class="bird-rope"></span>
+                </div>
 
-            <span class="flight-heart" aria-hidden="true">♥</span>
+                <button id="letterEnvelope"
+                        class="letter-envelope"
+                        type="button"
+                        aria-label="Open invitation letter">
+                    <span class="envelope-back"></span>
 
-            <div class="flying-bird bird-left" aria-hidden="true">
-                <span class="bird-emoji">🕊️</span>
-                <span class="bird-rope"></span>
+                    <span class="letter-paper">
+                        <span class="letter-paper-heart">♥</span>
+                        <span class="letter-paper-title">A Special Invitation</span>
+                        <span class="letter-paper-names">Naveen &amp; Shindhu</span>
+                    </span>
+
+                    <span class="envelope-front"></span>
+                    <span class="envelope-flap"></span>
+                    <span class="envelope-seal">♥</span>
+                </button>
             </div>
 
-            <div class="flying-bird bird-right" aria-hidden="true">
-                <span class="bird-emoji">🕊️</span>
-                <span class="bird-rope"></span>
+            <p class="letter-prompt" id="letterPrompt">
+                Two hearts, one beautiful story...
+            </p>
+
+            <button id="tapLetterButton" class="tap-letter-button" type="button">
+                OPEN YOUR LETTER ♥
+            </button>
+
+            <p class="letter-scene-telugu telugu">
+                ప్రేమతో మీకు ఒక ప్రత్యేక ఆహ్వానం
+            </p>
+        </div>
+
+        <!-- INVITATION INTRO WITH HOUSE NAME -->
+        <div class="opening-content invitation-intro is-hidden">
+
+            <div class="invitation-moon">
+                <p class="moon-house-name">PERUSAMULA</p>
+
+                <p class="moon-english">
+                    With God's blessings and our family's love,
+                    the Perusamula family joyfully invites you
+                    to celebrate a beautiful beginning together.
+                </p>
+
+                <p class="moon-telugu" lang="te">
+                    దైవ ఆశీస్సులతో, పెద్దల దీవెనలతో<br>
+                    పెరుసముల కుటుంబం తరఫున<br>
+                    మా ఇంటి శుభకార్యానికి<br>
+                    మిమ్మల్ని సాదరంగా ఆహ్వానిస్తున్నాము
+                </p>
             </div>
 
-            <button id="letterEnvelope"
-                    class="letter-envelope"
-                    type="button"
-                    aria-label="Open invitation letter">
+            <div class="opening-ring">
+                <span>♥</span>
+            </div>
 
-                <span class="envelope-back"></span>
+            <h1>
+                Naveen
+                <span>&amp;</span>
+                Shindhu
+            </h1>
 
-                <span class="letter-paper">
-                    <span class="letter-paper-heart">♥</span>
-                    <span class="letter-paper-title">A Special Invitation</span>
-                    <span class="letter-paper-names">Naveen &amp; Shindhu</span>
-                </span>
+            <p class="opening-subtitle">ARE GETTING ENGAGED</p>
+            <div class="gold-line"></div>
 
-                <span class="envelope-front"></span>
-                <span class="envelope-flap"></span>
-                <span class="envelope-seal">♥</span>
+            <p class="telugu opening-telugu">
+                నిశ్చితార్థ శుభకార్యానికి<br>
+                మీకు సాదర ఆహ్వానం
+            </p>
 
+            <button id="openInvitation" class="open-button">
+                <span>✦</span>
+                OPEN INVITATION
+                <span>✦</span>
             </button>
         </div>
 
-        <p class="letter-prompt" id="letterPrompt">
-            Two hearts, one beautiful story...
-        </p>
-
-        <button id="tapLetterButton" class="tap-letter-button" type="button">
-            OPEN YOUR LETTER ♥
-        </button>
-
-        <p class="letter-scene-telugu telugu">
-            ప్రేమతో మీకు ఒక ప్రత్యేక ఆహ్వానం
-        </p>
-
+        <div class="opening-decoration bottom-decoration">✦</div>
     </div>
 
-    <!-- ORIGINAL INVITATION INTRO -->
-    <div class="opening-content invitation-intro is-hidden">
+    <!-- MUSIC -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/music.mpeg" type="audio/mpeg">
+    </audio>
 
-        <p class="small-gold">TOGETHER WITH THEIR FAMILIES</p>
+    <button id="musicButton" class="music-button" title="Music">♪</button>
 
-        <div class="opening-ring">
-            <span>♥</span>
-        </div>
+    <!-- PETALS -->
+    <div id="petalsContainer"></div>
 
-        <h1>
-            Naveen
-            <span>&amp;</span>
-            Shindhu
-        </h1>
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
 
-        <p class="opening-subtitle">ARE GETTING ENGAGED</p>
+        <div class="hero-content">
+            <p class="hero-small">AN ENGAGEMENT TO REMEMBER</p>
+            <div class="hero-ornament">❈</div>
 
-        <div class="gold-line"></div>
+            <h1>
+                Naveen
+                <span>&amp;</span>
+                Shindhu
+            </h1>
 
-        <p class="telugu opening-telugu">
-            నిశ్చితార్థ శుభకార్యానికి<br>
-            మీకు సాదర ఆహ్వానం
-        </p>
+            <p class="hero-title">ENGAGEMENT CEREMONY</p>
 
-        <button id="openInvitation" class="open-button">
-            <span>✦</span>
-            OPEN INVITATION
-            <span>✦</span>
-        </button>
-
-    </div>
-
-    <div class="opening-decoration bottom-decoration">✦</div>
-</div>
-
-<!-- MUSIC -->
-<audio id="backgroundMusic" loop>
-    <source src="assets/music.mpeg" type="audio/mpeg">
-</audio>
-
-<button id="musicButton" class="music-button" title="Music">♪</button>
-
-<!-- PETALS -->
-<div id="petalsContainer"></div>
-
-<!-- HERO -->
-<header class="hero">
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-        <p class="hero-small">AN ENGAGEMENT TO REMEMBER</p>
-
-        <div class="hero-ornament">❈</div>
-
-        <h1>
-            Naveen
-            <span>&amp;</span>
-            Shindhu
-        </h1>
-
-        <p class="hero-title">ENGAGEMENT CEREMONY</p>
-
-        <div class="hero-date">
-            <span>28</span>
-            <div>
-                <strong>OCTOBER</strong>
-                <small>2026</small>
-            </div>
-        </div>
-
-        <p class="hero-location">HOME • CHENNUR</p>
-
-        <div class="scroll-indicator">
-            <span>SCROLL TO EXPLORE</span>
-            <div>↓</div>
-        </div>
-    </div>
-</header>
-
-<!-- WELCOME -->
-<section class="section welcome">
-    <div class="section-decoration">✦</div>
-    <p class="eyebrow">WITH LOVE &amp; JOY</p>
-    <h2>A Beautiful Beginning</h2>
-    <div class="gold-line center"></div>
-
-    <p class="main-text">
-        Two hearts, two families, and one beautiful beginning.
-        With immense happiness and the blessings of our loved ones,
-        we invite you to celebrate the engagement of
-        <strong>Naveen &amp; Shindhu</strong>.
-    </p>
-
-    <p class="telugu main-text">
-        రెండు హృదయాలు... ఒక అందమైన బంధం...<br>
-        నవీన్ &amp; షింధు నిశ్చితార్థ వేడుకకు
-        మీ అందరినీ ప్రేమతో ఆహ్వానిస్తున్నాము.
-    </p>
-</section>
-
-<!-- COUPLE -->
-<section class="section couple-section">
-    <p class="eyebrow">THE COUPLE</p>
-    <h2>Meet the Couple</h2>
-
-    <div class="couple-grid">
-
-        <div class="person-card">
-            <div class="person-image">
-                <img src="assets/bride.jpeg" alt="Bride"
-                     onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-                <div class="image-placeholder">
-                    <span>♡</span>
-                    <small>BRIDE PHOTO</small>
+            <div class="hero-date">
+                <span>28</span>
+                <div>
+                    <strong>OCTOBER</strong>
+                    <small>2026</small>
                 </div>
             </div>
 
-            <h3>Naveen</h3>
-            <p class="role">THE BRIDE</p>
-            <div class="mini-line"></div>
-        </div>
+            <p class="hero-location">HOME • CHENNUR</p>
 
-        <div class="heart-divider"><span>♥</span></div>
-
-        <div class="person-card">
-            <div class="person-image">
-                <img src="assets/groom.jpeg" alt="Groom"
-                     onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-                <div class="image-placeholder">
-                    <span>♡</span>
-                    <small>GROOM PHOTO</small>
-                </div>
-            </div>
-
-            <h3>Shindhu</h3>
-            <p class="role">THE GROOM</p>
-            <div class="mini-line"></div>
-        </div>
-
-    </div>
-</section>
-
-<!-- OUR STORY -->
-<section class="section story-section">
-    <p class="eyebrow">OUR JOURNEY</p>
-    <h2>Two Hearts, One Journey</h2>
-    <div class="gold-line center"></div>
-
-    <div class="story-timeline">
-        <div class="story-item">
-            <div class="story-number">01</div>
-            <div>
-                <h3>A Beautiful Meeting</h3>
-                <p>Every beautiful story begins with a moment that brings two people together.</p>
+            <div class="scroll-indicator">
+                <span>SCROLL TO EXPLORE</span>
+                <div>↓</div>
             </div>
         </div>
+    </header>
 
-        <div class="story-item">
-            <div class="story-number">02</div>
-            <div>
-                <h3>A Special Bond</h3>
-                <p>With every smile, every conversation and every memory, a beautiful bond began to grow.</p>
-            </div>
-        </div>
-
-        <div class="story-item">
-            <div class="story-number">03</div>
-            <div>
-                <h3>A New Beginning</h3>
-                <p>And now, with the blessings of our families, we begin a beautiful new chapter together.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- EVENT DETAILS -->
-<section class="section event-section">
-    <p class="eyebrow">SAVE THE DATE</p>
-    <h2>Engagement Ceremony</h2>
-
-    <div class="event-card">
-        <div class="event-icon">✦</div>
-        <h3>Naveen &amp; Shindhu</h3>
-
-        <div class="event-detail">
-            <span class="icon">📅</span>
-            <div>
-                <strong>DATE</strong>
-                <p>28 October 2026</p>
-            </div>
-        </div>
-
-        <div class="event-detail">
-            <span class="icon">⏰</span>
-            <div>
-                <strong>TIME</strong>
-                <p>10:00 AM</p>
-            </div>
-        </div>
-
-        <div class="event-detail">
-            <span class="icon">📍</span>
-            <div>
-                <strong>VENUE</strong>
-                <p>Home, Chennur</p>
-            </div>
-        </div>
-
-        <button class="calendar-button" onclick="downloadCalendar()">
-            ADD TO CALENDAR
-        </button>
-    </div>
-</section>
-
-<!-- COUNTDOWN -->
-<section class="countdown-section">
-    <div class="countdown-overlay"></div>
-
-    <div class="countdown-content">
-        <p class="eyebrow light">COUNTING THE MOMENTS</p>
-        <h2>Until Our Special Day</h2>
-
-        <div class="countdown">
-            <div class="count-box">
-                <span id="days">00</span>
-                <small>DAYS</small>
-            </div>
-            <div class="count-box">
-                <span id="hours">00</span>
-                <small>HOURS</small>
-            </div>
-            <div class="count-box">
-                <span id="minutes">00</span>
-                <small>MINUTES</small>
-            </div>
-            <div class="count-box">
-                <span id="seconds">00</span>
-                <small>SECONDS</small>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- COUPLE PHOTO -->
-<section class="section featured-photo">
-    <p class="eyebrow">OUR SPECIAL MOMENT</p>
-    <h2>Together</h2>
-
-    <div class="featured-image">
-        <img src="assets/couple.jpg" alt="Naveen and Shindhu"
-             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
-
-        <div class="featured-placeholder">
-            <span>♡</span>
-            <p>COUPLE PHOTO</p>
-            <small>Add your couple photo as <b>couple.jpg</b></small>
-        </div>
-
-        <div class="photo-overlay"><span>N &amp; S</span></div>
-    </div>
-</section>
-
-<!-- FAMILY BLESSINGS -->
-<section class="section family-section">
-    <p class="eyebrow">WITH THE BLESSINGS OF OUR FAMILIES</p>
-    <h2>Our Families</h2>
-
-    <div class="family-grid">
-        <div class="family-card">
-            <div class="family-icon">♡</div>
-            <h3>Bride's Family</h3>
-            <p><strong>Siva</strong></p>
-            <p>&amp; Kumari</p>
-            <div class="mini-line"></div>
-            <small>With love and blessings</small>
-        </div>
-
-        <div class="family-card">
-            <div class="family-icon">♡</div>
-            <h3>Groom's Family</h3>
-            <p><strong>Siva</strong></p>
-            <p>&amp; Kumari</p>
-            <div class="mini-line"></div>
-            <small>With love and blessings</small>
-        </div>
-    </div>
-
-    <p class="telugu family-telugu">
-        మీ ఆశీర్వాదాలు మా జీవితానికి
-        ఎల్లప్పుడూ వెలుగుగా నిలవాలని కోరుకుంటున్నాము.
-    </p>
-</section>
-
-<!-- GALLERY -->
-<section class="section gallery-section">
-    <p class="eyebrow">MEMORIES</p>
-    <h2>Our Gallery</h2>
-    <div class="gold-line center"></div>
-    <p class="gallery-intro">More beautiful memories will be added here.</p>
-
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <img src="assets/bride.jpeg" alt="Bride" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-
-        <div class="gallery-item">
-            <img src="assets/groom.jpeg" alt="Groom" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-
-        <div class="gallery-item large">
-            <img src="assets/couple.jpg" alt="Couple" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-
-        <div class="gallery-item">
-            <img src="assets/family1.JPG" alt="Family" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-
-        <div class="gallery-item">
-            <img src="assets/family2.JPG" alt="Family" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-
-        <div class="gallery-item">
-            <img src="assets/family3.jpg" alt="Family" onerror="this.style.display='none';">
-            <span>♥</span>
-        </div>
-    </div>
-</section>
-
-<!-- LOCATION -->
-<section class="section location-section">
-    <p class="eyebrow">JOIN US</p>
-    <h2>We Can't Wait To See You</h2>
-
-    <div class="location-card">
-        <div class="location-icon">📍</div>
-        <h3>Home</h3>
-        <p>Chennur</p>
-
-        <a href="https://goo.gl/maps/y4zz9aT43wsBZ6mX8"
-           id="mapButton"
-           class="map-button"
-           target="_blank"
-           rel="noopener noreferrer">
-            VIEW LOCATION
-        </a>
-    </div>
-</section>
-
-<!-- RSVP -->
-<section class="section rsvp-section">
-    <div class="rsvp-card">
-        <p class="eyebrow">YOUR PRESENCE MATTERS</p>
-        <h2 style="color: #5a152f;">Join Our Celebration</h2>
-        <p>Your presence and blessings will make our special day even more beautiful.</p>
-
-        <button class="whatsapp-button" onclick="sendWhatsApp()">
-            <span>💬</span>
-            RSVP ON WHATSAPP
-        </button>
-    </div>
-</section>
-
-<!-- FINAL MESSAGE -->
-<section class="final-section">
-    <div class="final-content">
-        <div class="final-symbol">✦</div>
-        <p class="final-small">WITH LOVE, HAPPINESS &amp; GRATITUDE</p>
-
-        <h2>
-            Naveen
-            <span>&amp;</span>
-            Shindhu
-        </h2>
-
-        <p class="telugu final-telugu">
-            మీ రాకతో మా ఆనందం మరింత రెట్టింపు అవుతుంది.
-        </p>
-
+    <!-- WELCOME -->
+    <section class="section welcome">
+        <div class="section-decoration">✦</div>
+        <p class="eyebrow">WITH LOVE &amp; JOY</p>
+        <h2>A Beautiful Beginning</h2>
         <div class="gold-line center"></div>
-        <p class="thank-you">Thank you for being a part of our beautiful beginning.</p>
-        <p class="final-date">28 • 06 • 2026</p>
+
+        <p class="main-text">
+            Two hearts, two families, and one beautiful beginning.
+            With immense happiness and the blessings of our loved ones,
+            we invite you to celebrate the engagement of
+            <strong>Naveen &amp; Shindhu</strong>.
+        </p>
+
+        <p class="telugu main-text">
+            రెండు హృదయాలు... ఒక అందమైన బంధం...<br>
+            నవీన్ &amp; షింధు నిశ్చితార్థ వేడుకకు
+            మీ అందరినీ ప్రేమతో ఆహ్వానిస్తున్నాము.
+        </p>
+    </section>
+
+    <!-- COUPLE -->
+    <section class="section couple-section">
+        <p class="eyebrow">THE COUPLE</p>
+        <h2>Meet the Couple</h2>
+
+        <div class="couple-grid">
+            <div class="person-card">
+                <div class="person-image">
+                    <img src="assets/bride.jpeg" alt="Bride"
+                         onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+                    <div class="image-placeholder">
+                        <span>♡</span>
+                        <small>BRIDE PHOTO</small>
+                    </div>
+                </div>
+                <h3>Naveen</h3>
+                <p class="role">THE BRIDE</p>
+                <div class="mini-line"></div>
+            </div>
+
+            <div class="heart-divider"><span>♥</span></div>
+
+            <div class="person-card">
+                <div class="person-image">
+                    <img src="assets/groom.jpeg" alt="Groom"
+                         onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+                    <div class="image-placeholder">
+                        <span>♡</span>
+                        <small>GROOM PHOTO</small>
+                    </div>
+                </div>
+                <h3>Shindhu</h3>
+                <p class="role">THE GROOM</p>
+                <div class="mini-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="section story-section">
+        <p class="eyebrow">OUR JOURNEY</p>
+        <h2>Two Hearts, One Journey</h2>
+        <div class="gold-line center"></div>
+
+        <div class="story-timeline">
+            <div class="story-item">
+                <div class="story-number">01</div>
+                <div>
+                    <h3>A Beautiful Meeting</h3>
+                    <p>Every beautiful story begins with a moment that brings two people together.</p>
+                </div>
+            </div>
+
+            <div class="story-item">
+                <div class="story-number">02</div>
+                <div>
+                    <h3>A Special Bond</h3>
+                    <p>With every smile, every conversation and every memory, a beautiful bond began to grow.</p>
+                </div>
+            </div>
+
+            <div class="story-item">
+                <div class="story-number">03</div>
+                <div>
+                    <h3>A New Beginning</h3>
+                    <p>And now, with the blessings of our families, we begin a beautiful new chapter together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section class="section event-section">
+        <p class="eyebrow">SAVE THE DATE</p>
+        <h2>Engagement Ceremony</h2>
+
+        <div class="event-card">
+            <div class="event-icon">✦</div>
+            <h3>Naveen &amp; Shindhu</h3>
+
+            <div class="event-detail">
+                <span class="icon">📅</span>
+                <div>
+                    <strong>DATE</strong>
+                    <p>28 October 2026</p>
+                </div>
+            </div>
+
+            <div class="event-detail">
+                <span class="icon">⏰</span>
+                <div>
+                    <strong>TIME</strong>
+                    <p>10:00 AM</p>
+                </div>
+            </div>
+
+            <div class="event-detail">
+                <span class="icon">📍</span>
+                <div>
+                    <strong>VENUE</strong>
+                    <p>Home, Chennur</p>
+                </div>
+            </div>
+
+            <button class="calendar-button" onclick="downloadCalendar()">
+                ADD TO CALENDAR
+            </button>
+        </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="countdown-section">
+        <div class="countdown-overlay"></div>
+
+        <div class="countdown-content">
+            <p class="eyebrow light">COUNTING THE MOMENTS</p>
+            <h2>Until Our Special Day</h2>
+
+            <div class="countdown">
+                <div class="count-box">
+                    <span id="days">00</span>
+                    <small>DAYS</small>
+                </div>
+                <div class="count-box">
+                    <span id="hours">00</span>
+                    <small>HOURS</small>
+                </div>
+                <div class="count-box">
+                    <span id="minutes">00</span>
+                    <small>MINUTES</small>
+                </div>
+                <div class="count-box">
+                    <span id="seconds">00</span>
+                    <small>SECONDS</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUPLE PHOTO -->
+    <section class="section featured-photo">
+        <p class="eyebrow">OUR SPECIAL MOMENT</p>
+        <h2>Together</h2>
+
+        <div class="featured-image">
+            <img src="assets/couple.jpg" alt="Naveen and Shindhu"
+                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');">
+
+            <div class="featured-placeholder">
+                <span>♡</span>
+                <p>COUPLE PHOTO</p>
+                <small>Add your couple photo as <b>couple.jpg</b></small>
+            </div>
+
+            <div class="photo-overlay"><span>N &amp; S</span></div>
+        </div>
+    </section>
+
+    <!-- FAMILY BLESSINGS -->
+    <section class="section family-section">
+        <p class="eyebrow">WITH THE BLESSINGS OF OUR FAMILIES</p>
+        <h2>Our Families</h2>
+
+        <div class="family-grid">
+            <div class="family-card">
+                <div class="family-icon">♡</div>
+                <h3>Bride's Family</h3>
+                <p><strong>Siva</strong></p>
+                <p>&amp; Kumari</p>
+                <div class="mini-line"></div>
+                <small>With love and blessings</small>
+            </div>
+
+            <div class="family-card">
+                <div class="family-icon">♡</div>
+                <h3>Groom's Family</h3>
+                <p><strong>Siva</strong></p>
+                <p>&amp; Kumari</p>
+                <div class="mini-line"></div>
+                <small>With love and blessings</small>
+            </div>
+        </div>
+
+        <p class="telugu family-telugu">
+            మీ ఆశీర్వాదాలు మా జీవితానికి
+            ఎల్లప్పుడూ వెలుగుగా నిలవాలని కోరుకుంటున్నాము.
+        </p>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section gallery-section">
+        <p class="eyebrow">MEMORIES</p>
+        <h2>Our Gallery</h2>
+        <div class="gold-line center"></div>
+        <p class="gallery-intro">More beautiful memories will be added here.</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/bride.jpeg" alt="Bride" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="assets/groom.jpeg" alt="Groom" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item large">
+                <img src="assets/couple.jpg" alt="Couple" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="assets/family1.JPG" alt="Family" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="assets/family2.JPG" alt="Family" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="assets/family3.jpg" alt="Family" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section location-section">
+        <p class="eyebrow">JOIN US</p>
+        <h2>We Can't Wait To See You</h2>
+
+        <div class="location-card">
+            <div class="location-icon">📍</div>
+            <h3>Home</h3>
+            <p>Chennur</p>
+
+            <a href="https://goo.gl/maps/y4zz9aT43wsBZ6mX8"
+               id="mapButton"
+               class="map-button"
+               target="_blank"
+               rel="noopener noreferrer">
+                VIEW LOCATION
+            </a>
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section rsvp-section">
+        <div class="rsvp-card">
+            <p class="eyebrow">YOUR PRESENCE MATTERS</p>
+            <h2 style="color: #5a152f;">Join Our Celebration</h2>
+            <p>Your presence and blessings will make our special day even more beautiful.</p>
+
+            <button class="whatsapp-button" onclick="sendWhatsApp()">
+                <span>💬</span>
+                RSVP ON WHATSAPP
+            </button>
+        </div>
+    </section>
+
+    <!-- FINAL MESSAGE -->
+    <section class="final-section">
+        <div class="final-content">
+            <div class="final-symbol">✦</div>
+            <p class="final-small">WITH LOVE, HAPPINESS &amp; GRATITUDE</p>
+
+            <h2>
+                Naveen
+                <span>&amp;</span>
+                Shindhu
+            </h2>
+
+            <p class="telugu final-telugu">
+                మీ రాకతో మా ఆనందం మరింత రెట్టింపు అవుతుంది.
+            </p>
+
+            <div class="gold-line center"></div>
+            <p class="thank-you">Thank you for being a part of our beautiful beginning.</p>
+            <p class="final-date">28 • 06 • 2026</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Made with ♥ for Naveen &amp; Shindhu</p>
+        <p>Engagement Invitation</p>
+    </footer>
+
+    <!-- GALLERY MODAL -->
+    <div id="imageModal" class="image-modal">
+        <button id="closeModal" class="close-modal" aria-label="Close image">×</button>
+        <img id="modalImage" src="" alt="Gallery image">
     </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-    <p>Made with ♥ for Naveen &amp; Shindhu</p>
-    <p>Engagement Invitation</p>
-</footer>
+    <!-- EXISTING WEBSITE FEATURES -->
+    <script src="script.js"></script>
 
-<!-- GALLERY MODAL -->
-<div id="imageModal" class="image-modal">
-    <button id="closeModal" class="close-modal" aria-label="Close image">×</button>
-    <img id="modalImage" src="" alt="Gallery image">
-</div>
+    <!-- LOVE BIRDS LETTER INTERACTION -->
+    <script>
+        (() => {
+            const scene = document.getElementById("lovebirdScene");
+            const envelope = document.getElementById("letterEnvelope");
+            const tapButton = document.getElementById("tapLetterButton");
+            const prompt = document.getElementById("letterPrompt");
+            const intro = document.querySelector(".invitation-intro");
 
-<!-- YOUR EXISTING WEBSITE FEATURES -->
-<script src="script.js"></script>
+            let opened = false;
 
-<!-- LOVE BIRDS LETTER INTERACTION -->
-<script>
-(() => {
-    const scene = document.getElementById("lovebirdScene");
-    const envelope = document.getElementById("letterEnvelope");
-    const tapButton = document.getElementById("tapLetterButton");
-    const prompt = document.getElementById("letterPrompt");
-    const intro = document.querySelector(".invitation-intro");
+            window.setTimeout(() => {
+                if (envelope) {
+                    envelope.classList.add("is-delivered");
+                }
+            }, 2900);
 
-    let opened = false;
+            function openLetter() {
+                if (opened) return;
+                opened = true;
 
-    // After the birds arrive, make the envelope tappable.
-    window.setTimeout(() => {
-        if (envelope) {
-            envelope.classList.add("is-delivered");
-        }
-    }, 2900);
+                if (envelope) {
+                    envelope.classList.add("is-open");
+                }
 
-    function openLetter() {
-        if (opened) return;
-        opened = true;
+                if (prompt) {
+                    prompt.textContent = "A beautiful celebration awaits...";
+                }
 
-        if (envelope) {
-            envelope.classList.add("is-open");
-        }
+                window.setTimeout(() => {
+                    if (scene) {
+                        scene.classList.add("delivered");
+                    }
 
-        if (prompt) {
-            prompt.textContent = "A beautiful celebration awaits...";
-        }
-
-        window.setTimeout(() => {
-            if (scene) {
-                scene.classList.add("delivered");
+                    if (intro) {
+                        intro.classList.remove("is-hidden");
+                        intro.classList.add("is-visible");
+                    }
+                }, 1300);
             }
 
-            if (intro) {
-                intro.classList.remove("is-hidden");
-                intro.classList.add("is-visible");
+            if (envelope) {
+                envelope.addEventListener("click", openLetter);
             }
-        }, 1300);
-    }
 
-    if (envelope) {
-        envelope.addEventListener("click", openLetter);
-    }
-
-    if (tapButton) {
-        tapButton.addEventListener("click", openLetter);
-    }
-})();
-</script>
-
+            if (tapButton) {
+                tapButton.addEventListener("click", openLetter);
+            }
+        })();
+    </script>
 </body>
 </html>

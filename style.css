@@ -674,7 +674,7 @@ body::after {
 
     color: var(--gold-light);
 
-    font-size: 20px;
+    font-size: 34px;
 
     animation: scrollMove 1.5s infinite;
 }
@@ -2998,4 +2998,466 @@ footer {
     visibility: hidden;
     pointer-events: none;
     transition: opacity .8s ease, visibility .8s ease;
+}
+
+
+/* ==========================================
+   RESPONSIVE SINGLE-SCREEN OPENING INVITATION
+========================================== */
+
+#openingScreen {
+    min-height: 100svh;
+    height: 100svh;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Keep the invitation content inside the screen */
+#openingScreen .invitation-intro {
+    width: 100%;
+    max-width: 600px;
+    max-height: 100%;
+    margin: 0 auto;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#openingScreen .invitation-intro::-webkit-scrollbar {
+    display: none;
+}
+
+/* Compact half-moon */
+#openingScreen .invitation-moon {
+    width: min(340px, 88vw);
+    min-height: 0;
+    margin: 0 auto 12px;
+    padding: 48px 25px 16px;
+    gap: 7px;
+    box-sizing: border-box;
+    border-radius: 180px 180px 16px 16px;
+}
+
+/* Decorative stars */
+#openingScreen .invitation-moon::after {
+    top: 22px;
+    font-size: 12px;
+    letter-spacing: 4px;
+}
+
+#openingScreen .invitation-moon::before {
+    inset: 7px 7px 7px;
+    border-radius: 170px 170px 12px 12px;
+    pointer-events: none;
+}
+
+/* House name */
+#openingScreen .moon-house-name {
+    font-size: clamp(17px, 2.5vw, 22px);
+    line-height: 1.15;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+#openingScreen .moon-house-name::after {
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+/* English quotation */
+#openingScreen .moon-english {
+    max-width: 280px;
+    font-size: clamp(13px, 1.8vw, 16px);
+    line-height: 1.35;
+}
+
+/* Telugu quotation */
+#openingScreen .moon-telugu {
+    font-size: clamp(11px, 1.6vw, 14px);
+    line-height: 1.65;
+}
+
+/* Heart symbol */
+#openingScreen .opening-ring {
+    width: 62px;
+    height: 62px;
+    margin: 5px auto 12px;
+}
+
+/* Couple names */
+#openingScreen .invitation-intro h1 {
+    margin: 5px 0;
+    font-size: clamp(44px, 7vw, 76px);
+    line-height: 0.98;
+}
+
+#openingScreen .invitation-intro h1 span {
+    display: block;
+    margin: 5px 0;
+    font-size: 0.5em;
+}
+
+/* Engagement subtitle */
+#openingScreen .opening-subtitle {
+    margin: 8px 0;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+/* Telugu invitation */
+#openingScreen .opening-telugu {
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Open invitation button */
+#openingScreen .open-button {
+    margin: 8px auto 0;
+    padding: 11px 22px;
+}
+
+/* Hide decorations that can cause visual clutter */
+#openingScreen .top-decoration,
+#openingScreen .bottom-decoration {
+    pointer-events: none;
+}
+
+/* Short desktop/laptop screens */
+@media (max-height: 800px) {
+    #openingScreen {
+        padding: 6px 12px;
+    }
+
+    #openingScreen .invitation-moon {
+        width: min(310px, 85vw);
+        padding: 38px 22px 12px;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+
+    #openingScreen .invitation-moon::after {
+        top: 17px;
+    }
+
+    #openingScreen .moon-english {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    #openingScreen .moon-telugu {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    #openingScreen .opening-ring {
+        width: 48px;
+        height: 48px;
+        margin: 2px auto 7px;
+    }
+
+    #openingScreen .invitation-intro h1 {
+        font-size: clamp(38px, 5vw, 58px);
+        margin: 3px 0;
+    }
+
+    #openingScreen .opening-subtitle {
+        margin: 5px 0;
+    }
+
+    #openingScreen .opening-telugu {
+        margin: 5px 0;
+    }
+
+    #openingScreen .open-button {
+        margin-top: 5px;
+        padding: 9px 18px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+    #openingScreen {
+        padding: 8px;
+    }
+
+    #openingScreen .invitation-intro {
+        padding: 5px;
+    }
+
+    #openingScreen .invitation-moon {
+        width: min(310px, 90vw);
+        padding: 42px 22px 13px;
+        gap: 6px;
+    }
+
+    #openingScreen .moon-house-name {
+        font-size: 18px;
+        letter-spacing: 2.5px;
+    }
+
+    #openingScreen .moon-english {
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    #openingScreen .moon-telugu {
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    #openingScreen .invitation-intro h1 {
+        font-size: clamp(39px, 12vw, 55px);
+    }
+
+    #openingScreen .opening-ring {
+        width: 48px;
+        height: 48px;
+    }
+
+    #openingScreen .opening-subtitle {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    #openingScreen .opening-telugu {
+        font-size: 12px;
+    }
+}
+
+/* Very short mobile screens */
+@media (max-height: 700px) {
+    #openingScreen .invitation-moon {
+        padding-top: 32px;
+        padding-bottom: 9px;
+    }
+
+    #openingScreen .moon-english {
+        font-size: 12px;
+    }
+
+    #openingScreen .moon-telugu {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    #openingScreen .opening-ring {
+        width: 38px;
+        height: 38px;
+        margin: 2px auto 5px;
+    }
+
+    #openingScreen .invitation-intro h1 {
+        font-size: 37px;
+    }
+
+    #openingScreen .opening-subtitle,
+    #openingScreen .opening-telugu {
+        margin: 4px 0;
+    }
+}
+
+/* =====================================
+   ADJUST HOUSE NAME, QUOTATION & COUPLE
+===================================== */
+
+/* Make Naveen and Shindhu smaller */
+#openingScreen .invitation-intro h1 {
+    font-size: clamp(38px, 5vw, 60px) !important;
+    line-height: 1;
+    margin: 8px 0;
+}
+
+/* Keep both names the same size */
+#openingScreen .invitation-intro h1 span {
+    display: block;
+    font-size: 0.48em !important;
+    margin: 5px 0;
+}
+
+/* Increase PERUSAMULA house name */
+#openingScreen .moon-house-name {
+    font-size: clamp(23px, 3.5vw, 30px) !important;
+    letter-spacing: 4px;
+    line-height: 1.3;
+}
+
+/* Increase English quotation */
+#openingScreen .moon-english {
+    font-size: clamp(17px, 2.2vw, 21px) !important;
+    line-height: 1.5;
+    max-width: 320px;
+}
+
+/* Increase Telugu quotation */
+#openingScreen .moon-telugu {
+    font-size: clamp(15px, 2vw, 18px) !important;
+    line-height: 1.8;
+}
+
+/* Desktop and laptop screens */
+@media (min-width: 768px) {
+    #openingScreen .invitation-moon {
+        width: min(420px, 90vw);
+        padding: 70px 35px 28px;
+        gap: 12px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+    #openingScreen .invitation-moon {
+        width: 94vw;
+        padding: 52px 23px 20px;
+        gap: 9px;
+    }
+
+    #openingScreen .moon-house-name {
+        font-size: 23px !important;
+        letter-spacing: 3px;
+    }
+
+    #openingScreen .moon-english {
+        font-size: 17px !important;
+        line-height: 1.4;
+    }
+
+    #openingScreen .moon-telugu {
+        font-size: 15px !important;
+        line-height: 1.7;
+    }
+
+    #openingScreen .invitation-intro h1 {
+        font-size: 42px !important;
+    }
+}
+
+/* Increase half-moon width and reduce quotation line breaks */
+
+#openingScreen .invitation-moon {
+    width: min(480px, 94vw) !important;
+    padding-left: 38px;
+    padding-right: 38px;
+}
+
+/* Allow English quotation to use more width */
+#openingScreen .moon-english {
+    max-width: 100% !important;
+    width: 100%;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.45;
+}
+
+/* Allow Telugu quotation to use more width */
+#openingScreen .moon-telugu {
+    max-width: 100% !important;
+    width: 100%;
+    font-size: clamp(14px, 1.8vw, 17px);
+    line-height: 1.7;
+}
+
+
+/* Make the moon invitation wider */
+#openingScreen .invitation-moon {
+    width: min(620px, 96vw) !important;
+    max-width: 620px !important;
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+    box-sizing: border-box;
+}
+
+/* English quote */
+#openingScreen .moon-english {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 20px !important;
+    line-height: 1.45 !important;
+}
+
+/* Telugu quote */
+#openingScreen .moon-telugu {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 17px !important;
+    line-height: 1.65 !important;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    #openingScreen .invitation-moon {
+        width: min(680px, 94vw) !important;
+        max-width: 680px !important;
+    }
+}
+
+
+/* Make the moon invitation wider */
+#openingScreen .invitation-moon {
+    width: min(620px, 96vw) !important;
+    max-width: 620px !important;
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+    box-sizing: border-box;
+}
+
+/* English quote */
+#openingScreen .moon-english {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 20px !important;
+    line-height: 1.45 !important;
+}
+
+/* Telugu quote */
+#openingScreen .moon-telugu {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 17px !important;
+    line-height: 1.65 !important;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    #openingScreen .invitation-moon {
+        width: min(660px, 94vw) !important;
+        max-width: 660px !important;
+    }
+}
+
+
+/* Slightly reduce moon width */
+#openingScreen .invitation-moon {
+    width: min(560px, 94vw) !important;
+    max-width: 560px !important;
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+    box-sizing: border-box;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    #openingScreen .invitation-moon {
+        width: min(600px, 90vw) !important;
+        max-width: 600px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    #openingScreen .invitation-moon {
+        width: 94vw !important;
+        max-width: 94vw !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
 }
