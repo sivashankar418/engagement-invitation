@@ -1,6 +1,6 @@
 /* =====================================================
    ENGAGEMENT INVITATION
-   NAVEEN & SHINDHU
+   NAVEEN & SINDHURI
 ===================================================== */
 
 
@@ -12,7 +12,7 @@ const invitationDetails = {
 
     bride: "Naveen",
 
-    groom: "Shindhu",
+    groom: "Sindhuri",
 
     date: "2026-10-28",
 
@@ -43,33 +43,37 @@ const music =
 const musicButton =
     document.getElementById("musicButton");
 
+function startMusic() {
+    music.play()
+        .then(() => {
+            musicButton.innerHTML = "♫";
+        })
+        .catch(() => {
+            musicButton.innerHTML = "♪";
+        });
+}
 
 if (openInvitation && openingScreen) {
 
     openInvitation.addEventListener("click", () => {
 
         openingScreen.classList.add("hidden");
-
-        /*
-            Browser allows music only after
-            user interaction.
-        */
-
-        music.play()
-            .then(() => {
-
-                musicButton.innerHTML = "♫";
-
-            })
-            .catch(() => {
-
-                musicButton.innerHTML = "♪";
-
-            });
+        startMusic();
 
     });
 
 }
+
+const letterEnvelope =
+    document.getElementById("letterEnvelope");
+
+const tapLetterButton =
+    document.getElementById("tapLetterButton");
+
+letterEnvelope?.addEventListener("click", startMusic);
+tapLetterButton?.addEventListener("click", startMusic);
+
+startMusic();
 
 
 /* =====================================================
@@ -80,19 +84,7 @@ musicButton.addEventListener("click", () => {
 
     if (music.paused) {
 
-        music.play()
-            .then(() => {
-
-                musicButton.innerHTML = "♫";
-
-            })
-            .catch(() => {
-
-                alert(
-                    "Please add your music file at assets/music.mp3"
-                );
-
-            });
+        startMusic();
 
     } else {
 
@@ -297,15 +289,15 @@ function downloadCalendar() {
 
     const calendarContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Naveen & Shindhu//Engagement Invitation//EN
+PRODID:-//Naveen & Sindhuri//Engagement Invitation//EN
 BEGIN:VEVENT
-UID:naveen-shindhu-engagement-2026@example.com
+UID:naveen-sindhuri-engagement-2026@example.com
 DTSTAMP:20260101T000000Z
 DTSTART:${startDate}
 DTEND:${endDate}
-SUMMARY:Naveen & Shindhu Engagement
+SUMMARY:Naveen & Sindhuri Engagement
 LOCATION:Home, Chennur
-DESCRIPTION:Engagement ceremony of Naveen & Shindhu.
+DESCRIPTION:Engagement ceremony of Naveen & Sindhuri.
 END:VEVENT
 END:VCALENDAR`;
 
@@ -329,7 +321,7 @@ END:VCALENDAR`;
     link.href = url;
 
     link.download =
-        "Naveen-Shindhu-Engagement.ics";
+        "Naveen-Sindhuri-Engagement.ics";
 
     document.body.appendChild(link);
 
@@ -412,5 +404,5 @@ document.addEventListener("keydown", (event) => {
 ===================================================== */
 
 console.log(
-    "💍 Naveen & Shindhu Engagement Invitation Loaded ❤️"
+    "💍 Naveen & Sindhuri Engagement Invitation Loaded ❤️"
 );

@@ -1,5 +1,5 @@
 /* =========================================================
-   NAVEEN & SHINDHU — GRAND ENGAGEMENT INVITATION
+   NAVEEN & SINDHURI — GRAND ENGAGEMENT INVITATION
    Royal Telugu / South Indian Luxury Theme
    Responsive Desktop + Mobile
 ========================================================= */
@@ -438,7 +438,7 @@ body::after {
     top: 22px;
     right: 22px;
 
-    z-index: 500;
+    z-index: 10000;
 
     width: 52px;
     height: 52px;
@@ -1568,7 +1568,7 @@ body::after {
 }
 
 .gallery-item {
-    height: 290px;
+    height: 270px;
 
     position: relative;
 
@@ -1592,7 +1592,7 @@ body::after {
 .gallery-item.large {
     grid-row: span 2;
 
-    height: 598px;
+    height: 558px;
 }
 
 .gallery-item img {
@@ -1761,12 +1761,11 @@ body::after {
 
     border-radius: 50px;
 
-    border: 1px solid var(--gold-light);
+    border: 1px solid #25d366;
 
-    background:
-        rgba(255,255,255,0.08);
+    background: #25d366;
 
-    color: var(--gold-light);
+    color: #ffffff;
 
     cursor: pointer;
 
@@ -1778,10 +1777,9 @@ body::after {
 }
 
 .whatsapp-button:hover {
-    background: var(--gold-light);
-    
-
-    color: var(--deep-wine);
+    background: #128c4a;
+    border-color: #128c4a;
+    color: #ffffff;
 
     transform: translateY(-3px);
 }
@@ -2327,11 +2325,11 @@ footer {
     }
 
     .gallery-item {
-        height: 220px;
+        height: 200px;
     }
 
     .gallery-item.large {
-        height: 450px;
+        height: 410px;
     }
 
     .gallery-item span {
@@ -2580,8 +2578,13 @@ footer {
 
     .gallery-item,
     .gallery-item.large {
-        height: 300px;
+        height: auto;
         grid-row: auto;
+    }
+
+    .gallery-item img {
+        height: auto;
+        object-fit: contain;
     }
 
     /* Location */
@@ -3271,7 +3274,7 @@ footer {
    ADJUST HOUSE NAME, QUOTATION & COUPLE
 ===================================== */
 
-/* Make Naveen and Shindhu smaller */
+/* Make Naveen and Sindhuri smaller */
 #openingScreen .invitation-intro h1 {
     font-size: clamp(38px, 5vw, 60px) !important;
     line-height: 1;
@@ -3459,5 +3462,78 @@ footer {
         max-width: 94vw !important;
         padding-left: 20px !important;
         padding-right: 20px !important;
+    }
+}
+
+/* Improve readability across the complete invitation on mobile */
+@media (max-width: 768px) {
+    .main-text,
+    .story-item p,
+    .event-detail p {
+        font-size: 16px;
+    }
+
+    .family-card p {
+        font-size: 21px;
+    }
+
+    .opening-subtitle,
+    .hero-small,
+    .hero-title,
+    .eyebrow,
+    .role,
+    .scroll-indicator span,
+    .hero-date small,
+    .event-detail strong,
+    .image-placeholder small,
+    .featured-placeholder small {
+        font-size: 11px;
+    }
+
+    .opening-telugu,
+    .family-telugu,
+    .final-telugu {
+        font-size: 16px;
+    }
+
+    .hero-location {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .hero-date strong {
+        font-size: 14px;
+    }
+
+    .count-box small {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .open-button,
+    .calendar-button,
+    .map-button,
+    .whatsapp-button {
+        font-size: 12px;
+    }
+
+    footer {
+        font-size: 10px;
+    }
+
+    #openingScreen .opening-subtitle {
+        font-size: 11px;
+    }
+
+    #openingScreen .opening-telugu {
+        font-size: 16px;
+    }
+
+    .letter-scene-kicker {
+        font-size: 12px !important;
+    }
+
+    .tap-letter-button {
+        font-size: 12px !important;
     }
 }
