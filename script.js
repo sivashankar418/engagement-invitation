@@ -293,59 +293,72 @@ function sendWhatsApp() {
 
 function downloadCalendar() {
 
-    const startDate = "20261028T100000";
+    const escapeCalendarText = (text) =>
+        text
+            .replace(/\\/g, "\\\\")
+            .replace(/\r\n|\n|\r/g, "\\n")
+            .replace(/([,;])/g, "\\$1");
 
-    /*
-        Assuming approximately 2 hours
-        for the engagement ceremony.
-    */
+    const [year, month, day] =
+        invitationDetails.date.split("-").map(Number);
+    const [hours, minutes, seconds] =
+        invitationDetails.time.split(":").map(Number);
+    const start = new Date(Date.UTC(
+        year,
+        month - 1,
+        day,
+        hours,
+        minutes,
+        seconds || 0
+    ));
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    const formatCalendarDate = (date) => {
+        const dateParts = [
+            date.getUTCFullYear(),
+            String(date.getUTCMonth() + 1).padStart(2, "0"),
+            String(date.getUTCDate()).padStart(2, "0")
+        ];
+        const timeParts = [
+            String(date.getUTCHours()).padStart(2, "0"),
+            String(date.getUTCMinutes()).padStart(2, "0"),
+            String(date.getUTCSeconds()).padStart(2, "0")
+        ];
 
-    const endDate = "20261028T120000";
-
-
-    const calendarContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Naveen & Sindhuri//Engagement Invitation//EN
-BEGIN:VEVENT
-UID:naveen-sindhuri-engagement-2026@example.com
-DTSTAMP:20260101T000000Z
-DTSTART:${startDate}
-DTEND:${endDate}
-SUMMARY:Naveen & Sindhuri Engagement
-LOCATION:Home, Chennur
-DESCRIPTION:Engagement ceremony of Naveen & Sindhuri.
-END:VEVENT
-END:VCALENDAR`;
-
-
-    const blob =
-        new Blob(
-            [calendarContent],
-            {
-                type: "text/calendar"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const link =
-        document.createElement("a");
+        return `${dateParts.join("")}T${timeParts.join("")}`;
+    };
+    const timestamp = new Date()
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace(/\.\d{3}/, "");
+    const calendarLines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Naveen & Sindhuri//Engagement Invitation//EN",
+        "BEGIN:VEVENT",
+        "UID:naveen-sindhuri-engagement-2026@example.com",
+        `DTSTAMP:${timestamp}`,
+        `DTSTART:${formatCalendarDate(start)}`,
+        `DTEND:${formatCalendarDate(end)}`,
+        `SUMMARY:${escapeCalendarText("Naveen & Sindhuri Engagement")}`,
+        `LOCATION:${escapeCalendarText(`${invitationDetails.venue}, ${invitationDetails.location}`)}`,
+        `DESCRIPTION:${escapeCalendarText("Engagement ceremony of Naveen & Sindhuri.")}`,
+        "END:VEVENT",
+        "END:VCALENDAR",
+        ""
+    ];
+    const blob = new Blob(
+        [calendarLines.join("\r\n")],
+        { type: "text/calendar;charset=utf-8" }
+    );
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
 
     link.href = url;
-
-    link.download =
-        "Naveen-Sindhuri-Engagement.ics";
-
+    link.download = "Naveen-Sindhuri-Engagement.ics";
     document.body.appendChild(link);
-
     link.click();
-
     document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 
 }
 
