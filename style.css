@@ -1848,7 +1848,7 @@ body::after {
 
     font-weight: 500;
 
-    line-height: 0.72;
+    line-height: 1.05;
 
     margin: 40px 0;
 }
@@ -1962,6 +1962,10 @@ footer {
 
     justify-content: center;
 
+    flex-direction: column;
+
+    gap: 16px;
+
     padding: 25px;
 
     background:
@@ -1975,12 +1979,28 @@ footer {
 .image-modal img {
     max-width: 90%;
 
-    max-height: 85vh;
+    max-height: 78vh;
 
     border: 5px solid white;
 
     box-shadow:
         0 20px 70px rgba(0,0,0,0.4);
+}
+
+.download-image {
+    padding: 12px 22px;
+    border: 1px solid var(--gold-light);
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ffe7ad, #d8a45d);
+    color: var(--deep-wine);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+.download-image:hover {
+    background: var(--gold-light);
 }
 
 .close-modal {
@@ -3124,10 +3144,59 @@ footer {
     line-height: 1.6;
 }
 
+/* Invitation call to action */
+#openingScreen .invitation-action {
+    width: min(100%, 360px);
+    margin: 7px auto 0;
+}
+
+#openingScreen .invitation-ready {
+    margin: 0 0 5px;
+    color: var(--gold-light);
+    font-family: "Noto Serif Telugu", serif;
+    font-size: 13px;
+}
+
+#openingScreen .invitation-hint,
+#openingScreen .invitation-instruction {
+    margin: 0 0 5px;
+    color: #fff5ed;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+#openingScreen .invitation-hint [lang="te"],
+#openingScreen .invitation-instruction [lang="te"] {
+    font-family: "Noto Serif Telugu", serif;
+}
+
+#openingScreen .invitation-arrow {
+    margin: 0 0 4px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+#openingScreen .invitation-tap-note {
+    margin: 5px 0 0;
+    color: var(--gold-light);
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+#openingScreen .open-button [lang="te"] {
+    display: block;
+    margin: 0;
+    color: inherit;
+    font-family: "Noto Serif Telugu", serif;
+    font-size: 11px;
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
 /* Open invitation button */
 #openingScreen .open-button {
-    margin: 8px auto 0;
-    padding: 11px 22px;
+    margin: 0 auto;
+    padding: 11px 18px;
 }
 
 /* Hide decorations that can cause visual clutter */
@@ -3182,9 +3251,33 @@ footer {
         margin: 5px 0;
     }
 
+    #openingScreen .invitation-action {
+        margin-top: 3px;
+    }
+
+    #openingScreen .invitation-ready {
+        margin-bottom: 2px;
+        font-size: 11px;
+    }
+
+    #openingScreen .invitation-hint,
+    #openingScreen .invitation-instruction {
+        margin-bottom: 2px;
+        font-size: 9px;
+    }
+
+    #openingScreen .invitation-arrow {
+        margin-bottom: 2px;
+        font-size: 15px;
+    }
+
     #openingScreen .open-button {
-        margin-top: 5px;
-        padding: 9px 18px;
+        padding: 8px 16px;
+    }
+
+    #openingScreen .invitation-tap-note {
+        margin-top: 2px;
+        font-size: 7px;
     }
 }
 
@@ -3535,5 +3628,132 @@ footer {
 
     .tap-letter-button {
         font-size: 12px !important;
+    }
+}
+
+
+
+/* Bilingual invitation instructions */
+#openingScreen .invitation-action {
+    width: min(94%, 460px);
+    margin: 12px auto;
+    padding: 0 8px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#openingScreen .invitation-ready {
+    color: #f5d58a;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: clamp(17px, 2.5vw, 22px);
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+#openingScreen .invitation-hint,
+#openingScreen .invitation-instruction {
+    color: #fff1d3;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: clamp(13px, 1.8vw, 17px);
+    line-height: 1.8;
+    margin: 6px 0;
+}
+
+#openingScreen .invitation-arrow {
+    font-size: 34px;
+    margin: 5px 0;
+    animation: invitationPointDown 0.8s infinite alternate;
+}
+
+#openingScreen .open-button {
+    width: min(100%, 400px);
+    min-height: 65px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    display: inline-block;
+
+    background: linear-gradient(135deg, #ffe7ad, #d8a45d);
+    color: #641a37;
+    border: 2px solid #fff0c9;
+    border-radius: 24px;
+
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: clamp(14px, 1.8vw, 18px);
+    font-weight: bold;
+    line-height: 1.8;
+    white-space: normal;
+    cursor: pointer;
+
+    box-shadow: 0 0 18px rgba(245, 213, 138, 0.5);
+    animation: invitationButtonGlow 1.8s infinite;
+}
+
+#openingScreen .open-button > span:first-child {
+    font-size: 1.8em;
+    vertical-align: middle;
+}
+
+#openingScreen .open-button > span[lang="te"] {
+    font-size: 15px;
+    line-height: 16.5px;
+}
+
+#openingScreen .invitation-tap-note {
+    color: #f5d58a;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: clamp(13px, 1.8vw, 16px);
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+@keyframes invitationPointDown {
+    from { transform: translateY(0); }
+    to { transform: translateY(7px); }
+}
+
+@keyframes invitationButtonGlow {
+    0%, 100% {
+        box-shadow: 0 0 12px rgba(245, 213, 138, 0.35);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(245, 213, 138, 0.85);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    #openingScreen .invitation-action {
+        width: 96%;
+        padding: 0 4px;
+    }
+
+    #openingScreen .invitation-ready {
+        font-size: 16px;
+    }
+
+    #openingScreen .invitation-hint,
+    #openingScreen .invitation-instruction {
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+    #openingScreen .open-button {
+        width: 100%;
+        min-height: 60px;
+        padding: 10px 8px;
+        font-size: 13px;
+        border-radius: 20px;
+    }
+
+    #openingScreen .invitation-tap-note {
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #openingScreen .invitation-arrow,
+    #openingScreen .open-button {
+        animation: none;
     }
 }

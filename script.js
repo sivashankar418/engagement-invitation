@@ -43,6 +43,16 @@ const music =
 const musicButton =
     document.getElementById("musicButton");
 
+const invitationSessionKey = "engagementInvitationOpened";
+
+try {
+    if (openingScreen && sessionStorage.getItem(invitationSessionKey) === "true") {
+        openingScreen.classList.add("hidden");
+    }
+} catch (error) {
+    console.warn("Could not restore the invitation page state.", error);
+}
+
 function startMusic() {
     music.play()
         .then(() => {
@@ -56,6 +66,12 @@ function startMusic() {
 if (openInvitation && openingScreen) {
 
     openInvitation.addEventListener("click", () => {
+
+        try {
+            sessionStorage.setItem(invitationSessionKey, "true");
+        } catch (error) {
+            console.warn("Could not save the invitation page state.", error);
+        }
 
         openingScreen.classList.add("hidden");
         startMusic();
@@ -347,6 +363,9 @@ const imageModal =
 const modalImage =
     document.getElementById("modalImage");
 
+const downloadImage =
+    document.getElementById("downloadImage");
+
 const closeModal =
     document.getElementById("closeModal");
 
@@ -359,6 +378,12 @@ galleryImages.forEach(image => {
 
         modalImage.src = image.src;
 
+        const imageFileName =
+            decodeURIComponent(new URL(image.src).pathname.split("/").pop() || "invitation-photo");
+
+        downloadImage.href = image.src;
+        downloadImage.download = imageFileName;
+
         imageModal.classList.add("show");
 
     });
@@ -370,6 +395,53 @@ closeModal.addEventListener("click", () => {
 
     imageModal.classList.remove("show");
 
+});
+
+downloadImage.addEventListener("click", async (event) => {
+    if (!navigator.share || !navigator.canShare || typeof File === "undefined") {
+        return;
+    }
+
+    event.preventDefault();
+
+    const downloadFallback = () => {
+        const link = document.createElement("a");
+        link.href = downloadImage.href;
+        link.download = downloadImage.download;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    };
+
+    try {
+        const response = await fetch(downloadImage.href);
+        if (!response.ok) {
+            throw new Error(`Image download failed with status ${response.status}.`);
+        }
+
+        const imageFile = new File(
+            [await response.blob()],
+            downloadImage.download,
+            { type: response.headers.get("content-type") || "application/octet-stream" }
+        );
+
+        if (!navigator.canShare({ files: [imageFile] })) {
+            downloadFallback();
+            return;
+        }
+
+        await navigator.share({
+            files: [imageFile],
+            title: "Engagement photo"
+        });
+    } catch (error) {
+        if (error.name === "AbortError") {
+            return;
+        }
+
+        console.warn("Could not open the image share sheet; downloading the image instead.", error);
+        downloadFallback();
+    }
 });
 
 

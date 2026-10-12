@@ -258,9 +258,9 @@
         .tap-letter-button {
             margin-top: 15px;
             padding: 13px 25px;
-            color: #fff;
-            background: rgba(255,255,255,.08);
-            border: 1px solid #e9c982;
+            color: #641a37;
+            background: linear-gradient(135deg,#ffe7ad,#d8a45d);
+            border: 1px solid #fff0c9;
             border-radius: 40px;
             font-size: 10px;
             letter-spacing: 2px;
@@ -560,11 +560,36 @@
                 మీకు సాదర ఆహ్వానం
             </p>
 
-            <button id="openInvitation" class="open-button">
-                <span>✦</span>
-                OPEN INVITATION
-                <span>✦</span>
-            </button>
+            <div class="invitation-action">
+                <p class="invitation-ready" lang="te">
+                    ❤️ మీకు ప్రత్యేక ఆహ్వానం ❤️
+                </p>
+
+                <p class="invitation-hint">
+                    Your special invitation is ready!
+                    <br>
+                    <span lang="te">మీ ప్రత్యేక ఆహ్వానం సిద్ధంగా ఉంది!</span>
+                </p>
+
+                <p class="invitation-instruction">
+                    Tap below to view the full invitation
+                    <br>
+                    <span lang="te">పూర్తి ఆహ్వానం చూడటానికి ఇక్కడ తాకండి</span>
+                </p>
+
+                <div class="invitation-arrow" aria-hidden="true">👇</div>
+
+                <button id="openInvitation" class="open-button" type="button">
+                    <span aria-hidden="true">💌</span>
+                    OPEN FULL INVITATION
+                    <br>
+                    <span lang="te">పూర్తి ఆహ్వానం చూడండి</span>
+                </button>
+
+                <p class="invitation-tap-note">
+                    👆 TAP HERE • ఇక్కడ తాకండి 👆
+                </p>
+            </div>
         </div>
 
         <div class="opening-decoration bottom-decoration">✦</div>
@@ -847,17 +872,17 @@
             </div>
 
             <div class="gallery-item">
-                <img src="assets/family1.JPG" alt="Family" onerror="this.style.display='none';">
-                <span>♥</span>
-            </div>
-
-            <div class="gallery-item">
                 <img src="assets/family2.JPG" alt="Family" onerror="this.style.display='none';">
                 <span>♥</span>
             </div>
 
             <div class="gallery-item">
-                <img src="assets/family3.jpg" alt="Family" onerror="this.style.display='none';">
+                <img src="assets/SRE01867.jpeg" alt="Family" onerror="this.style.display='none';">
+                <span>♥</span>
+            </div>
+
+            <div class="gallery-item">
+                <img src="assets/SRE01864.jpeg" alt="Family" onerror="this.style.display='none';">
                 <span>♥</span>
             </div>
         </div>
@@ -870,7 +895,7 @@
 
         <div class="location-card">
             <div class="location-icon">📍</div>
-            <h3>Saraswathi Nagar,Chennur(NEAR HOME)</h3>
+            <h3>Saraswathi Nagar,Chennur</h3>
             <p>KADAPA</p>
 
             <a href="https://goo.gl/maps/y4zz9aT43wsBZ6mX8"
@@ -929,6 +954,7 @@
     <div id="imageModal" class="image-modal">
         <button id="closeModal" class="close-modal" aria-label="Close image">×</button>
         <img id="modalImage" src="" alt="Gallery image">
+        <a id="downloadImage" class="download-image" href="" download>↓ Save Image</a>
     </div>
 
     <!-- EXISTING WEBSITE FEATURES -->
