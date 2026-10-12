@@ -196,7 +196,7 @@ body::after {
 }
 
 .opening-screen::after {
-    content: "✦   ❈   ✦   ❈   ✦";
+    content: "♥   ❈   ♥   ❈   ♥";
 
     position: absolute;
 
@@ -734,7 +734,7 @@ body::after {
 }
 
 .section::before {
-    content: "✦";
+    content: "♥";
 
     position: absolute;
 
@@ -1241,7 +1241,7 @@ body::after {
 }
 
 .countdown-section::before {
-    content: "✦ ❈ ✦";
+    content: "♥ ❈ ♥";
 
     position: absolute;
 
@@ -1774,6 +1774,10 @@ body::after {
     letter-spacing: 2px;
 
     transition: 0.4s;
+}
+
+.whatsapp-button .rsvp-heart {
+    color: var(--gold-light);
 }
 
 .whatsapp-button:hover {
