@@ -293,16 +293,11 @@ function sendWhatsApp() {
 
 function downloadCalendar() {
 
-    const escapeCalendarText = (text) =>
-        text
-            .replace(/\\/g, "\\\\")
-            .replace(/\r\n|\n|\r/g, "\\n")
-            .replace(/([,;])/g, "\\$1");
-
     const [year, month, day] =
         invitationDetails.date.split("-").map(Number);
     const [hours, minutes, seconds] =
         invitationDetails.time.split(":").map(Number);
+
     const start = new Date(Date.UTC(
         year,
         month - 1,
@@ -312,53 +307,21 @@ function downloadCalendar() {
         seconds || 0
     ));
     const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
-    const formatCalendarDate = (date) => {
-        const dateParts = [
-            date.getUTCFullYear(),
-            String(date.getUTCMonth() + 1).padStart(2, "0"),
-            String(date.getUTCDate()).padStart(2, "0")
-        ];
-        const timeParts = [
-            String(date.getUTCHours()).padStart(2, "0"),
-            String(date.getUTCMinutes()).padStart(2, "0"),
-            String(date.getUTCSeconds()).padStart(2, "0")
-        ];
 
-        return `${dateParts.join("")}T${timeParts.join("")}`;
-    };
-    const timestamp = new Date()
-        .toISOString()
-        .replace(/[-:]/g, "")
-        .replace(/\.\d{3}/, "");
-    const calendarLines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Naveen & Sindhuri//Engagement Invitation//EN",
-        "BEGIN:VEVENT",
-        "UID:naveen-sindhuri-engagement-2026@example.com",
-        `DTSTAMP:${timestamp}`,
-        `DTSTART:${formatCalendarDate(start)}`,
-        `DTEND:${formatCalendarDate(end)}`,
-        `SUMMARY:${escapeCalendarText("Naveen & Sindhuri Engagement")}`,
-        `LOCATION:${escapeCalendarText(`${invitationDetails.venue}, ${invitationDetails.location}`)}`,
-        `DESCRIPTION:${escapeCalendarText("Engagement ceremony of Naveen & Sindhuri.")}`,
-        "END:VEVENT",
-        "END:VCALENDAR",
-        ""
-    ];
-    const blob = new Blob(
-        [calendarLines.join("\r\n")],
-        { type: "text/calendar;charset=utf-8" }
-    );
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const formatGoogleCalendarDate = (date) =>
+        date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
 
-    link.href = url;
-    link.download = "Naveen-Sindhuri-Engagement.ics";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const url = new URL("https://calendar.google.com/calendar/render");
+
+    url.searchParams.set("action", "TEMPLATE");
+    url.searchParams.set("text", "Naveen & Sindhuri Engagement Ceremony");
+    url.searchParams.set("dates", `${formatGoogleCalendarDate(start)}/${formatGoogleCalendarDate(end)}`);
+    url.searchParams.set("details", "With joy in our hearts and blessings from our families, we invite you to celebrate the Engagement Ceremony of\n\nNaveen & Sindhuri\n\nDate: 28 October 2026\nTime: 10:00 AM\nVenue: Home, Chennur\n\nYour presence will make our special day even more beautiful.");
+    url.searchParams.set("location", `${invitationDetails.venue}, ${invitationDetails.location}`);
+    url.searchParams.set("sf", "true");
+    url.searchParams.set("output", "1");
+
+    window.open(url.toString(), "_blank");
 
 }
 
